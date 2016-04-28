@@ -24,10 +24,11 @@ namespace asp
             
             services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>(options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
+            services.AddTransient<TripSeedData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, TripSeedData seed)
         {
             app.UseIISPlatformHandler();
             //app.UseDefaultFiles();
@@ -45,6 +46,8 @@ namespace asp
             {
                 await context.Response.WriteAsync("Hello World!");
             });
+
+            seed.InsertSeedData();
         }
 
         public static IConfigurationRoot Configuration;

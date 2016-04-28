@@ -11,6 +11,7 @@ namespace asp.Models
         //public System.Data.Entity.DbSet<asp.Models.Trip> Trip { get; set; }
         //public System.DataMisalignedException.Entity.DbSet<asp.Models.Stop> Stop { get; set; }
         public DbSet<Trip> Trip { get; set; }
+        public DbSet<Stop> Stops { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var connString =
@@ -18,6 +19,10 @@ namespace asp.Models
             optionsBuilder.UseSqlServer(connString);
             base.OnConfiguring(optionsBuilder); 
             
+        }
+        public DatabaseContext()
+        {
+            Database.EnsureCreated();
         }
     }
 
