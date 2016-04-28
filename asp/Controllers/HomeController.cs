@@ -23,5 +23,17 @@ namespace asp.controllers
         {
             return View();
         }
+        //public IActionResult Index()
+        //{
+        //    Trips db = new Trips();
+        //    ViewBag.Trip = new Trip()
+        //    {
+        //        name = "sample trip",
+        //        DateCreated = DateTime.Now
+        //    };
+        //    var trips = db.GetAllTrips();
+
+        //    return View(); //pass trips to the view
+        //}
     }
 }
