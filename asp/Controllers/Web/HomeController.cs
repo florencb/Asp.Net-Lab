@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Data.Entity;
+using asp.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,30 +12,26 @@ namespace asp.controllers
 {
     public class HomeController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
-        {
-            return View();
-        }
+        // GET: /<controller>/  
         public IActionResult About()
         {
             return View();
         }
+
         public IActionResult Contacts()
         {
             return View();
         }
-        //public IActionResult Index()
-        //{
-        //    Trips db = new Trips();
-        //    ViewBag.Trip = new Trip()
-        //    {
-        //        name = "sample trip",
-        //        DateCreated = DateTime.Now
-        //    };
-        //    var trips = db.GetAllTrips();
+        private DatabaseContext db = new DatabaseContext();
+        // GET: /<controller>/
 
-        //    return View(); //pass trips to the view
-        //}
-    }
+        public IActionResult Index()
+            {
+            var Trips = db.Trip.Include(a => a.Stops);
+        //ViewBag.test = Trips;
+        var repo = new TripsRepository(db);
+            //ViewBag.test = repo;
+            return View(repo.GetAllTrips());
+        }
+}
 }

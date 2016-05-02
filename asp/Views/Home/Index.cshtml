@@ -1,4 +1,5 @@
 ﻿
+@model IEnumerable<TravelApp.Models.Trip>
 
             <p>Getting started..</p>
 
@@ -13,3 +14,22 @@
                 </div>
                 <div><input type="submit" value="Add" /></div>
             </form>
+<br />
+<h3> Trips:</h3>
+<div>
+    @{
+        foreach (var trip in Model)
+        {
+            <div>
+                @trip.Name
+                <ul>
+                    @foreach (var stop in trip.Stops)
+                    {
+                        <li>@stop.Name</li>
+                    }
+                </ul>
+            </div>
+
+        }
+    }
+</div>

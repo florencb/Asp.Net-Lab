@@ -22,9 +22,9 @@ namespace asp
         {
             services.AddMvc();
             
-            services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>(options =>
-            options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
+            services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
             services.AddTransient<TripSeedData>();
+            services.AddScoped<TripsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,18 +33,20 @@ namespace asp
             app.UseIISPlatformHandler();
             //app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvc(config =>
+            app.UseMvc(
+                config =>
             {
                 config.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" }
                  );
-            });
+            }
+            );
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hello New World!");
             });
 
             seed.InsertSeedData();

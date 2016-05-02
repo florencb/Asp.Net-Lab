@@ -7,7 +7,7 @@ namespace asp.Models
 {
     public class Stop
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
