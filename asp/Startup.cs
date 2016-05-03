@@ -21,8 +21,8 @@ namespace asp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
-            services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
+
+            services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>();//options => options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
             services.AddTransient<TripSeedData>();
             services.AddScoped<TripsRepository>();
         }
