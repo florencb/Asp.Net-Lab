@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace asp.Models
 {
-    public class DatabaseContext :DbContext 
+    public class DatabaseContext : IdentityDbContext<AppUser> 
     {
         //public System.Data.Entity.DbSet<asp.Models.Trip> Trip { get; set; }
         //public System.DataMisalignedException.Entity.DbSet<asp.Models.Stop> Stop { get; set; }
@@ -24,6 +25,7 @@ namespace asp.Models
         {
             Database.EnsureCreated();
         }
+
     }
 
 

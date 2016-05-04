@@ -23,15 +23,24 @@ namespace asp.controllers
             return View();
         }
         private DatabaseContext db = new DatabaseContext();
-        // GET: /<controller>/
 
+        // GET: /<controller>/
         public IActionResult Index()
-            {
-            var Trips = db.Trip.Include(a => a.Stops);
-        //ViewBag.test = Trips;
-        var repo = new TripsRepository(db);
+        {
+            //var Trips = db.Trips.Include(a => a.Stops);
+            //ViewBag.test = Trips;
+            var repo = new TripsRepository(db);
             //ViewBag.test = repo;
             return View(repo.GetAllTrips());
         }
-}
+
+        //public IActionResult Index()
+        //{
+        //    TripsRepository db = new TripsRepository(new DatabaseContext());
+        //    ViewBag.Trip = new Trip() { Name = "Test", CreatedDate = DateTime.Now };
+        //    var trip = this.db.GetAllTrips();
+
+        //    return View();
+        //}
+    }
 }

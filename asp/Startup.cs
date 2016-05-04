@@ -9,7 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using asp.Models;
+//using MVC6.Models;
 using Microsoft.Data.Entity;
+using AutoMapper;
+using asp.ViewModels;
+using asp.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 //using Microsoft.Data.Entity;
 
 namespace asp
@@ -25,6 +30,15 @@ namespace asp
             services.AddEntityFramework().AddSqlServer().AddDbContext<DatabaseContext>();//options => options.UseSqlServer(Configuration["Data:DefaultConnection:TripsConnectionString"]));
             services.AddTransient<TripSeedData>();
             services.AddScoped<TripsRepository>();
+            services.AddScoped<CoordinateService>();
+            services.AddIdentity<AppUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireNonLetterOrDigit = false;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            }).AddEntityFrameworkStores<DatabaseContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +63,19 @@ namespace asp
                 await context.Response.WriteAsync("Hello New World!");
             });
 
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Trip, TripViewModel>().ReverseMap();
+                config.CreateMap<Stop, StopViewModel>().ReverseMap();
+            }
+            );
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello New World!");
+            });
+
             seed.InsertSeedData();
+
         }
 
         public static IConfigurationRoot Configuration;

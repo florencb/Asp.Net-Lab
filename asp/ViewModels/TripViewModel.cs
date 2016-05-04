@@ -9,7 +9,7 @@ namespace asp.ViewModels
     public class TripViewModel
     {
         public int ID { get; set; }
-        [Required(ErrorMessage = "Enter at least 5 characters")]
+        [Required(ErrorMessage = "Enter at least 5 characters for name")]
         [StringLength(255, MinimumLength = 5, ErrorMessage ="Invalid")]
         public string name { get; set; }
         public DateTime date = DateTime.Now;
